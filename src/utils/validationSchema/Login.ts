@@ -7,6 +7,6 @@ export const loginValidation = yup.object({
         .required("Campo obrigatório"),
     senha: yup
         .string()
-        .min(8, "Informe uma senha com no mínimo 8 dígitos")
+        .min(6, "Informe uma senha com no mínimo 6 dígitos")
         .required("Campo obrigatório")
 });

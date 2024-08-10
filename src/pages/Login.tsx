@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { loginInitial } from "../utils/initialValues/Login";
 import { LoginInterface } from "../interfaces/LoginInterface";
 import { loginValidation } from "../utils/validationSchema/Login";
+import { login } from "../services/authService";
 
 
 const Login = () => {
@@ -12,7 +13,7 @@ const Login = () => {
         initialValues: loginInitial,
         validationSchema: loginValidation,
         onSubmit: (values) => {
-            console.log(values);
+            handleLogin(values);
             formik.resetForm();
         }
     });
@@ -20,6 +21,14 @@ const Login = () => {
     const handleSubmit = () => {
         formik.submitForm();
     }
+    const handleLogin = async (credencias: LoginInterface) => {
+        try {
+            const data = await login(credencias);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <>
             <CssBaseline />
