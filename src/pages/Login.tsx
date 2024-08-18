@@ -1,14 +1,18 @@
 import { Box, Button, Container, TextField, Typography, CssBaseline } from "@mui/material";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginInitial } from "../utils/initialValues/Login";
 import { LoginInterface } from "../interfaces/LoginInterface";
 import { loginValidation } from "../utils/validationSchema/Login";
 import { login } from "../services/authService";
+import { useDispatch } from "react-redux";
+import { loginRedux } from "../redux/auth/slice";
+import { dataUser } from "../redux/user/slice";
 
 
 const Login = () => {
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const formik = useFormik<LoginInterface>({
         initialValues: loginInitial,
         validationSchema: loginValidation,
@@ -24,6 +28,9 @@ const Login = () => {
     const handleLogin = async (credencias: LoginInterface) => {
         try {
             const data = await login(credencias);
+            dispatch(loginRedux(data.access_token));
+            dispatch(dataUser(data));            
+            navigate("/home");
         } catch (error) {
             console.error(error);
         }

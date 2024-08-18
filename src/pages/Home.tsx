@@ -1,6 +1,12 @@
+import { CssBaseline } from "@mui/material";
+import NavBar from "../componentes/NavBar";
+
 const Home = () => {
     return (
-        <h1>Home</h1>
+        <>
+            <CssBaseline />
+            <NavBar />
+        </>
     );
 }
 export default Home;
