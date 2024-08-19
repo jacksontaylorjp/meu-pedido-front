@@ -4,5 +4,5 @@ export interface CadastroInterface {
     matricula: string;
     cpf: string;
     senha: string;
-    confSenha: string;
+    confSenha?: string;
 }

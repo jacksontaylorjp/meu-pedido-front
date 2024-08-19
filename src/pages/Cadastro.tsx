@@ -1,18 +1,20 @@
 import { Box, Button, Container, TextField, Typography, CssBaseline } from "@mui/material";
 import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/authService";
 import { cadastroInitial } from "../utils/initialValues/Cadastro";
 import { cadastroValidation } from "../utils/validationSchema/Cadastro";
 import { CadastroInterface } from "../interfaces/CadastroInterface";
+import userService from "../services/userService";
 
 const Cadastro = () => {
     const navigate = useNavigate();
+    const {cadastrar} = userService();
     const formik = useFormik<CadastroInterface>({
         initialValues: cadastroInitial,
         validationSchema: cadastroValidation,
         onSubmit: (values) => {
-            handleCadastrar(values);
+            const {confSenha, ...data} = values 
+            handleCadastrar(data);
             formik.resetForm();
             navigate("/");
         }
@@ -21,10 +23,11 @@ const Cadastro = () => {
     const handleSubmit = () => {
         formik.submitForm();
     }
-    const handleCadastrar = async (credencias: CadastroInterface) => {
+    const handleCadastrar = async (dataUser: CadastroInterface) => {
         try {
-            const data = await login(credencias);
-            navigate("/home");
+            const data = await cadastrar(dataUser);
+            console.log(data);
+            
         } catch (error) {
             console.error(error);
         }
