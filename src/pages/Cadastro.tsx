@@ -5,32 +5,31 @@ import { cadastroInitial } from "../utils/initialValues/Cadastro";
 import { cadastroValidation } from "../utils/validationSchema/Cadastro";
 import { CadastroInterface } from "../interfaces/CadastroInterface";
 import userService from "../services/userService";
+import { toast } from "react-toastify";
 
 const Cadastro = () => {
     const navigate = useNavigate();
-    const {cadastrar} = userService();
+    const { cadastrar } = userService();
     const formik = useFormik<CadastroInterface>({
         initialValues: cadastroInitial,
         validationSchema: cadastroValidation,
-        onSubmit: (values) => {
-            const {confSenha, ...data} = values 
-            handleCadastrar(data);
-            formik.resetForm();
-            navigate("/");
+        onSubmit: async (values) => {
+            const { confSenha, ...data } = values
+            if (confSenha === values.senha) {
+                const res = await cadastrar(data);
+                if (res) {
+                    formik.resetForm();
+                    navigate("/");
+                }
+            } else {
+                toast.error("As senhas informadas não são iguais");
+                return
+            }
         }
     });
 
     const handleSubmit = () => {
         formik.submitForm();
-    }
-    const handleCadastrar = async (dataUser: CadastroInterface) => {
-        try {
-            const data = await cadastrar(dataUser);
-            console.log(data);
-            
-        } catch (error) {
-            console.error(error);
-        }
     }
 
     return (
@@ -92,7 +91,7 @@ const Cadastro = () => {
                         />
                         <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
                             <TextField
-                                label="Matricula"
+                                label="Matricula + Dígito"
                                 variant="outlined"
                                 sx={{ width: "49%" }}
                                 name="matricula"

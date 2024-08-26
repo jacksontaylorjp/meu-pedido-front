@@ -10,6 +10,7 @@ const NavBar = () => {
     const dispatch = useDispatch();
     const user_name = useSelector((state: RootState) => state.user.user_name).trim();
     const firstName = user_name.split(" ")[0];
+    const secondName = user_name.split(" ")[1];
     const handleLogout = () => {
         logout();
         dispatch(logoutRedux());
@@ -21,7 +22,7 @@ const NavBar = () => {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: "bold" }}>
                         Meu pedido
                     </Typography>
-                    <Chip icon={<PersonIcon/>} label={firstName} size="medium" color="info"/>
+                    <Chip icon={<PersonIcon/>} label={firstName +" "+ secondName} size="medium" color="info"/>
                     <Button
                         variant="outlined"
                         sx={{ color: "#ffffff", fontWeight: "bold", ml: 2 }}
