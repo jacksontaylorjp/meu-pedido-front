@@ -16,24 +16,22 @@ const NavBar = () => {
         dispatch(logoutRedux());
     }
     return (
-        <Box sx={{ flexGrow: 1, background: "#2790b0" }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: "bold" }}>
-                        Meu pedido
-                    </Typography>
-                    <Chip icon={<PersonIcon/>} label={firstName +" "+ secondName} size="medium" color="info"/>
-                    <Button
-                        variant="outlined"
-                        sx={{ color: "#ffffff", fontWeight: "bold", ml: 2 }}
-                        onClick={handleLogout}
-                    >
-                        <LogoutIcon />
-                        Sair
-                    </Button>
-                </Toolbar>
-            </AppBar>
-        </Box>
+        <AppBar position="static">
+            <Toolbar>
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: "bold" }}>
+                    Meu pedido
+                </Typography>
+                <Chip icon={<PersonIcon />} label={firstName + " " + secondName} size="medium" color="info" />
+                <Button
+                    variant="outlined"
+                    sx={{ color: "#ffffff", fontWeight: "bold", ml: 2 }}
+                    onClick={handleLogout}
+                >
+                    <LogoutIcon />
+                    Sair
+                </Button>
+            </Toolbar>
+        </AppBar>
     );
 }
 

@@ -3,7 +3,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Legenda = () => {
     return (
-        <Paper elevation={3} sx={{ p: 3 }}>
+        <Paper elevation={1} sx={{ p: 3 }}>
             <Box sx={{
                 alignItems: "flex-start",
                 display: "flex",
@@ -11,7 +11,7 @@ const Legenda = () => {
                 gap: 1,
                 pt: 1
             }}>
-                <Typography variant="subtitle2">
+                <Typography variant="subtitle2" sx={{fontWeight: "bold"}}>
                     Legenda
                 </Typography>
                 <Chip icon={<CheckCircleIcon />} label="Pedido Realizado" size="medium" color="info" />

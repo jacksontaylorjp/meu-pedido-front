@@ -2,7 +2,7 @@ import { Box, Checkbox, FormControlLabel, Paper, Typography } from "@mui/materia
 
 const Acoes = () => {
     return (
-        <Paper elevation={3} sx={{ p: 3 }}>
+        <Paper elevation={1} sx={{ p: 3 }}>
             <Box sx={{
                 alignItems: "flex-start",
                 display: "flex",
@@ -10,7 +10,7 @@ const Acoes = () => {
                 gap: 1,
                 pb: 1
             }}>
-                <Typography variant="subtitle2">
+                <Typography variant="subtitle2" sx={{fontWeight: "bold"}}>
                     Ações
                 </Typography>
                 <FormControlLabel control={<Checkbox />} label="Pedido automático" />
