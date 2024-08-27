@@ -1,4 +1,4 @@
-import { AppBar, Box, Button, Chip, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Chip, Toolbar, Typography } from "@mui/material";
 import { logout } from "../services/authService";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutRedux } from "../redux/auth/slice";

@@ -2,7 +2,7 @@ import { Box, Checkbox, FormControlLabel, Paper, Typography } from "@mui/materia
 
 const Acoes = () => {
     return (
-        <Paper elevation={1} sx={{ p: 3 }}>
+        <Paper elevation={1} sx={{ p: 3}}>
             <Box sx={{
                 alignItems: "flex-start",
                 display: "flex",

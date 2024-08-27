@@ -28,7 +28,13 @@ const Calendario = () => {
                 width: "80%",
             }}
         >
-            <Typography variant="h4">{mesesAno[mesAtual]}</Typography>
+            <Typography variant="h3" sx={{ 
+                fontWeight: 'bold', 
+                color: '#3498db', 
+                mb: 2,
+                mt: 2 }}>
+                {mesesAno[mesAtual]}
+            </Typography>
             <Grid container spacing={2} sx={{ textAlign: "center" }}>
                 {diasDaSemana.map((dias) => (
                     <Grid item xs={1.714} key={dias}>
@@ -37,7 +43,7 @@ const Calendario = () => {
                 ))}
             </Grid>
             <Grid container spacing={2}>
-                {calendarioDias.map((dia:any, index) => {
+                {calendarioDias.map((dia: any, index) => {
                     const dataAtual = new Date(anoAtual, mesAtual, dia);
                     const diaDaSemana = dataAtual.getDay();
                     const sabDom = diaDaSemana === 0 || diaDaSemana === 6;
