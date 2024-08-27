@@ -1,12 +1,15 @@
 import { Box, Chip, Grid, Paper, Typography } from "@mui/material";
 import { diasDaSemana } from "../utils/diasDaSemana";
 import { mesesAno } from "../utils/mesAno";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const Calendario = () => {
+    const usuarioId = useSelector((state: RootState) => state.user.user_id); 
+    
     const hoje = new Date();
     const anoAtual = hoje.getFullYear();
     const mesAtual = hoje.getMonth();
-
     const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
     const primeiroDiaDaSemana = new Date(anoAtual, mesAtual, 1).getDay();
     const calendarioDias = Array.from({ length: primeiroDiaDaSemana }).concat(
@@ -14,7 +17,8 @@ const Calendario = () => {
     );
 
     const handleDayClick = (dia: number) => {
-        console.log(`Dia ${dia} foi clicado.`);
+        //verificar se a data já tem pedido(implementar no backend), se sim, apenas atualizar o status, caso contrário, criar pedido com status true
+        console.log(usuarioId);
     };
 
     return (
