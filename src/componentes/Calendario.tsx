@@ -3,8 +3,10 @@ import { diasDaSemana } from "../utils/diasDaSemana";
 import { mesesAno } from "../utils/mesAno";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import pedidoService from "../services/pedidoService";
 
 const Calendario = () => {
+    const pedidoApi = pedidoService();
     const usuarioId = useSelector((state: RootState) => state.user.user_id); 
     
     const hoje = new Date();
@@ -15,10 +17,24 @@ const Calendario = () => {
     const calendarioDias = Array.from({ length: primeiroDiaDaSemana }).concat(
         Array.from({ length: diasNoMes }, (_, i) => i + 1)
     );
-
+    const formatarData = (data: Date): string => {
+        return data.toISOString();
+    };    
+    
     const handleDayClick = (dia: number) => {
-        //verificar se a data já tem pedido(implementar no backend), se sim, apenas atualizar o status, caso contrário, criar pedido com status true
-        console.log(usuarioId);
+        const dataSelecionada = new Date(anoAtual, mesAtual, dia)
+        const dataFormatada = formatarData(dataSelecionada);
+        //filtrar pela data, se existir chamar atualizar, caso contrario cadastrar
+        //usar estado para fazer as modificações
+        pedidoApi.getByData(dataFormatada).then((response) => {
+            console.log(response);
+            
+        });
+        const dataPedido = {
+            "usuarioId": usuarioId,
+            "data": dataSelecionada,
+            "status": true
+        }
     };
 
     return (
