@@ -4,11 +4,14 @@ import { mesesAno } from "../utils/mesAno";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import pedidoService from "../services/pedidoService";
+import { useState } from "react";
+import CheckIcon from '@mui/icons-material/Check';
 
 const Calendario = () => {
     const pedidoApi = pedidoService();
-    const usuarioId = useSelector((state: RootState) => state.user.user_id); 
-    
+    const usuarioId = useSelector((state: RootState) => state.user.user_id);
+    const [response, setResponse] = useState([]);
+
     const hoje = new Date();
     const anoAtual = hoje.getFullYear();
     const mesAtual = hoje.getMonth();
@@ -19,23 +22,35 @@ const Calendario = () => {
     );
     const formatarData = (data: Date): string => {
         return data.toISOString();
-    };    
-    
+    };
+
     const handleDayClick = (dia: number) => {
         const dataSelecionada = new Date(anoAtual, mesAtual, dia)
         const dataFormatada = formatarData(dataSelecionada);
-        //filtrar pela data, se existir chamar atualizar, caso contrario cadastrar
-        //usar estado para fazer as modificações
-        pedidoApi.getByData(dataFormatada).then((response) => {
-            console.log(response);
-            
-        });
         const dataPedido = {
             "usuarioId": usuarioId,
             "data": dataSelecionada,
             "status": true
         }
+        //filtrar pela data, se existir chamar atualizar, caso contrario cadastrar
+        //usar estado para fazer as modificações
+        pedidoApi.getByData(dataFormatada).then((response) => {
+            if (response?.data) {
+                //criar função aqui para atualizar
+                setResponse(response.data);
+                return;
+            } else {
+                pedidoApi.cadastrar(dataPedido).then(res => {
+                    if (res?.data) {
+                        setResponse(res.data);
+                        return;
+                    }
+                })
+            }
+
+        });
     };
+    console.log(response);
 
     return (
         <Box
@@ -48,11 +63,12 @@ const Calendario = () => {
                 width: "80%",
             }}
         >
-            <Typography variant="h3" sx={{ 
-                fontWeight: 'bold', 
-                color: '#3498db', 
+            <Typography variant="h3" sx={{
+                fontWeight: 'bold',
+                color: '#3498db',
                 mb: 2,
-                mt: 2 }}>
+                mt: 2
+            }}>
                 {mesesAno[mesAtual]}
             </Typography>
             <Grid container spacing={2} sx={{ textAlign: "center" }}>
@@ -94,6 +110,7 @@ const Calendario = () => {
                                     onClick={!sabDom ? () => handleDayClick(dia) : undefined}
                                 >
                                     {dia}
+                                    {<CheckIcon />}
                                 </Paper>
                             ) : (
                                 <Box sx={{ height: "60px", width: "80%" }} />
