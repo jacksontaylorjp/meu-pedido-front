@@ -26,6 +26,7 @@ const login = async (credenciais: LoginInterface) => {
 
 const logout = async () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
 };
 
 export { login, logout };

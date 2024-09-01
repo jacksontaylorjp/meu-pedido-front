@@ -6,7 +6,7 @@ const MenuLateral = () => {
     return (
         <Box sx={{ display: "flex", flexDirection: "column", width: "20%", p: 1, gap: 1 }}>
             <Divider />
-            <Acoes />
+            {/* <Acoes /> */}
             <Legenda />
         </Box>
     );

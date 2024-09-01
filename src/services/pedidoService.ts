@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import api from "./api"
-import { PedidoInterface } from "../interfaces/PedidoInterface";
+import { PedidoInterface, PedidoUpdateInterface } from "../interfaces/PedidoInterface";
 
 const pedidoService = () => {
     return {
@@ -12,16 +12,36 @@ const pedidoService = () => {
                 }
                 return response
             } catch (error: any) {
-                // if (error.response.status === 400){
-                //     toast.error("Por favor verificar se o usuário já tem cadastro no sistema.");
-                // }
                 console.error(error);
 
             }
         },
-        getByData: async (data: string) => {
+        atualizar: async (dados: PedidoUpdateInterface) => {
             try {
-                const response = await api.get(`/pedido/${data}`);
+                const response = await api.patch(`/pedido`, dados);
+                if (response.status === 200) {
+                    toast.success("Pedido atualizado com sucesso!");
+                }
+                return response;
+            } catch (error) {
+                console.error(error)
+            }
+        },
+        getByData: async (usuarioId: number, data: string) => {
+            const params = {
+                usuarioId: usuarioId,
+                data: data
+            }
+            try {
+                const response = await api.get(`/pedido`, {params});
+                return response;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        getPedido: async (usuarioId: number) => {
+            try {
+                const response = await api.get(`/pedido/user/${usuarioId}`);
                 return response;
             } catch (error) {
                 console.error(error);
