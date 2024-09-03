@@ -7,7 +7,6 @@ import pedidoService from "../services/pedidoService";
 import { useEffect, useState } from "react";
 import CheckIcon from '@mui/icons-material/Check';
 import { PedidoInterface } from "../interfaces/PedidoInterface";
-import { toast } from "react-toastify";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 

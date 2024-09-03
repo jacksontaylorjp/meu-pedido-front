@@ -33,7 +33,7 @@ const pedidoService = () => {
                 data: data
             }
             try {
-                const response = await api.get(`/pedido`, {params});
+                const response = await api.get(`/pedido`, { params });
                 return response;
             } catch (error) {
                 console.error(error);
@@ -42,6 +42,17 @@ const pedidoService = () => {
         getPedido: async (usuarioId: number) => {
             try {
                 const response = await api.get(`/pedido/user/${usuarioId}`);
+                return response;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        relatorioDia: async (data: string) => {
+            const params = {
+                data: data
+            }
+            try {
+                const response = await api.get(`/pedido/relatorio`, { params });
                 return response;
             } catch (error) {
                 console.error(error);
