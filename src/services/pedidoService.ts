@@ -55,6 +55,7 @@ const pedidoService = () => {
                 const response = await api.get(`/pedido/relatorio`, { params });
                 return response;
             } catch (error) {
+                toast.error("Erro ao gerar relatório, informe uma data válida.");
                 console.error(error);
             }
         }
